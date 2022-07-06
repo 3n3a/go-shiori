@@ -17,6 +17,7 @@ jobs:
       - name: Prep binaries
         working-directory: .github/workflows/docker
         run: |
+          ls -lha ../../../
           mkdir binaries
           cp -r ../../../shiori_linux_* binaries/
           mv binaries/shiori_linux_arm_7 binaries/shiori_linux_arm
