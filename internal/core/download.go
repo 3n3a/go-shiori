@@ -3,16 +3,20 @@ package core
 import (
 	"io"
 	"net/http"
-	"time"
+	"time",
+	"crypto/tls"
 )
 
-var httpClient = &http.Client{Timeout: time.Minute}
+var transport = &http.Transport{
+	TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+}
+var httpClient = &http.Client{Timeout: time.Minute, Transport: transport}
 
 // DownloadBookmark downloads bookmarked page from specified URL.
 // Return response body, make sure to close it later.
 func DownloadBookmark(url string) (io.ReadCloser, string, error) {
 	// Prepare download request
-	req, err := http.NewRequest("GET", url, nil)
+	req, err := httpClient.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, "", err
 	}
