@@ -3,7 +3,7 @@ package core
 import (
 	"io"
 	"net/http"
-	"time",
+	"time"
 	"crypto/tls"
 )
 
